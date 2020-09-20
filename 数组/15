@@ -1,0 +1,59 @@
+题目：https://leetcode-cn.com/problems/3sum/
+
+知识：
+1.向vector<vector<>> v 中添加元素：
+  法1：新建vector<int> v1 向这里面添加，然后再把v1添加进去
+  法2：v.push_back(vector<int>{ , , ,})
+2.sort(vector.begin(),vector.end())
+3.取整 int(3.5) = 3
+       int(-3.5)=-3
+4.set 和 vector 转化：
+  set<int>s(vec.begin(), vec.end());
+  vec.assign(s.begin(), s.end());
+5.unique：
+  vec.erase(unique(vec.begin(), vec.end()), vec.end()); 先将重复元素置于尾部，然后删除重复元素
+6.break：跳出循环，执行循环之后的内容
+  continue：跳出当前循环，执行下一次循环
+  return：结束
+7.总结： 
+  两数之和使用了哈希法，三数之和使用了双指针，那么这种题就先考虑这两个方法。
+  
+答案：
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<vector<int>> v;
+        if(nums.size() < 3) return v;
+        int aim;
+
+        for(int i = 0; i < nums.size(); ++i){
+            aim = nums[i]*(-1); 
+
+            if(nums[i]>0) return v;     //大于零的肯定不满足
+            
+            if(i>0 && nums[i]==nums[i-1]) continue;
+            
+            int j = i + 1, k = nums.size()-1 ;
+            while(j < k){
+                if(nums[j]+nums[k]<aim) {               
+                    ++j;
+                    continue;                  
+                }
+                else if(nums[j]+nums[k]>aim) { 
+                    --k;
+                    continue;                   
+                }
+                else{
+                    v.push_back(vector<int>{nums[i],nums[j],nums[k]});
+                    while(j<k && nums[j]==nums[j+1]) ++j;
+                    while(j<k && nums[k]==nums[k-1]) --k;
+                    ++j;
+                    --k;//相等之后需要同时改变
+                }
+                
+            }  
+        }
+        return v;
+    }
+};
