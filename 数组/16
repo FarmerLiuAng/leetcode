@@ -1,0 +1,28 @@
+题目名称 https://leetcode-cn.com/problems/3sum-closest/submissions/
+
+知识点：
+#include<cmath> INT_MAX INT_MIN
+
+代码
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(),nums.end());
+        int dif,sum,minsum,mindif = 1001;
+        for(int i = 0 ; i < nums.size(); ++i){          
+            
+            int j = i+1;
+            int k = nums.size()-1;
+            while(j < k){
+                sum = nums[i] + nums[j] + nums[k];
+                dif = sum - target;
+                if(dif > 0) --k;
+                else if(dif < 0 ) ++j;
+                else return target;
+                mindif = min(abs(dif),mindif);
+                if(mindif == abs(dif)) minsum = sum;
+            }
+        }
+        return minsum;
+    }
+};
