@@ -1,0 +1,56 @@
+题目：https://leetcode-cn.com/problems/4sum/submissions/
+
+知识点：
+# include<iostream>
+using namespace std;
+int main(){
+	int a = 0 ;
+	while(a >= 0){
+		if(a == 0){
+		 a = 20;
+		} 
+		
+		else if(a==20) {
+			a = -1;
+		}
+		cout << a << endl; 
+	}
+输出的是 20 和 -1
+代表即使if中条件改变之后，不会在进入到else if中
+
+答案：
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int> > v;
+        if(nums.size()<4) return v;
+        int i, j, k, l, s = nums.size();
+        for(int i = 0 ; i < s-3; ++i){ //至少要有四个数
+            if(i>0 && nums[i]== nums[i-1]) continue;
+            for(int j = i + 1; j < s-2; ++j){
+                if(j>i+1 && nums[j]== nums[j-1]) continue;
+                int k = j+1, l = s-1;
+                while(k<l){
+                    if(nums[i]+nums[j]+nums[k]+nums[l] > target) {
+                        --l;
+                    }
+                    else if(nums[i]+nums[j]+nums[k]+nums[l] < target) {
+                        ++k;
+                    }
+                    else {
+                        v.push_back(vector<int>{nums[i],nums[j],nums[k],nums[l]});                  
+                        while(k<l && nums[k]==nums[k+1]) ++k;
+                        while(k<l && nums[l]==nums[l-1]) --l;
+                        ++k;
+                        --l;
+                    }
+                
+                }
+            }
+        }
+        return v;
+    }
+};
+
+
