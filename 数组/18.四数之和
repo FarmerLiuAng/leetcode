@@ -1,6 +1,7 @@
 题目：https://leetcode-cn.com/problems/4sum/submissions/
 
 知识点：
+1.
 # include<iostream>
 using namespace std;
 int main(){
@@ -17,6 +18,7 @@ int main(){
 	}
 输出的是 20 和 -1
 代表即使if中条件改变之后，不会在进入到else if中
+2. if和elseif 之间不能有语句
 
 答案：
 class Solution {
